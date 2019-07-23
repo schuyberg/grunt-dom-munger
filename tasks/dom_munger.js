@@ -130,6 +130,19 @@ module.exports = function(grunt) {
       });
     }
 
+    if (options.wrap) {
+      options.wrap = toArray(options.wrap);
+      options.wrap.forEach(function (option) {
+        if (!option.selector || !option.html) {
+          grunt.log.error('Prepend config missing selector and/or html options');
+        } else {
+          $(option.selector).wrap(option.html);
+          grunt.log.writeln("Wrapped with" + option.selector.cyan);
+          updated = true;
+        }
+      });
+    }
+
     if (options.text){
       options.text = toArray(options.text);
       options.text.forEach(function(option) {
